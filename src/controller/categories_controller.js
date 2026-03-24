@@ -38,6 +38,7 @@ const categoriesController={
                 success: true,
                 data: allCategories
             });
+            
 
         }
         catch (error) {
@@ -55,12 +56,19 @@ const categoriesController={
             const id=req.params.id
 
             const foundCategory = await categoryModel.findById(id)
+            if(!foundCategory){
+                return res.json({
+                    success: false,
+                    message:"category is not found "
+                });
+            }
 
 
             return res.json({
                 success: true,
                 data: foundCategory
             });
+         
 
         }
         catch (error) {

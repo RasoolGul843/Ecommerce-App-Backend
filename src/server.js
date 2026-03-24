@@ -20,11 +20,20 @@ mongoose.connect("mongodb://127.0.0.1:27017/ecommerceDB")
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log("MongoDB Error:", err));
 
-// Routes
+               //--------- Routes--------//
+
+             /////----- User Routes -----////
 const userRoutes = require("./routes/user_routes");
 app.use("/api/user", userRoutes);
+
+           /////----- category Routes -----////
 const categoriesRoutes = require("./routes/category_routes");
 app.use("/api/category", categoriesRoutes);
+
+          /////----- category Routes -----////
+const productsRoutes = require("./routes/products_routes");
+app.use("/api/products", productsRoutes);
+
 
 
 // Start server
