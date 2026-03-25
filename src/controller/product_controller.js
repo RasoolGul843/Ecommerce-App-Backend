@@ -41,7 +41,7 @@ const ProductController = {
     // Fetch products by category
     fetchProductByCategory: async function (req, res) {
         try {
-            const categoryId = req.params.id; 
+            const categoryId = req.params.id;
             const products = await ProductModel.find({ category: categoryId });
             return res.json({
                 success: true,
