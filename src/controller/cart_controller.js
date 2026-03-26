@@ -85,7 +85,8 @@ const   CartController={
             const {user,product}=req.body;
             const updatedCart=await CartModel.findOneAndUpdate(
                 {user:user},
-                {$pull:{items:{product:product}}}
+                {$pull:{items:{product:product}}},
+                {new:true}
             )
             return res.json({
                 success: true,

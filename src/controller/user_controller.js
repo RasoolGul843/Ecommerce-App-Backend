@@ -38,43 +38,50 @@ const userController = {
             });
         }
     },
-    loginUser:async function(req,res){
-        try{
-            const {email,password} = req.body;
-            
-            if(!email || !password){
-                return res.json({
+    loginUser: async function (req, res) {
+        try {
+            const { email, password } = req.body;
+
+            if (!email || !password) {
+                return res.status(400).json({
                     success: false,
                     message: "Email and password are required"
                 });
             }
 
-            const foundUser=await userModel.findOne({email:email});
-            if(!foundUser){
-                return res.json({
-                    success:false,
-                    message:"user not found!"
-                })
+            const foundUser = await userModel.findOne({ email: email });
+
+            if (!foundUser) {
+                return res.status(404).json({
+                    success: false,
+                    message: "User not found"
+                });
             }
-           const passwardMatch= bcrypt.compareSync(password,foundUser.password)
-           if(!passwardMatch){
-               return res.json({
-                   success: false,
-                   message: "Passward id not match"
-               })
-           }
+
+            const passwordMatch = bcrypt.compareSync(password, foundUser.password);
+
+            if (!passwordMatch) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Password does not match"
+                });
+            }
+
+            // Exclude password from the response
+            const { password: _, ...userData } = foundUser.toObject();
+
             return res.json({
                 success: true,
-                message: "User is login"
-            })
-        }
-        catch(error){
-            return res.json({
+                message: "User logged in successfully",
+                data: userData
+            });
+
+        } catch (error) {
+            return res.status(500).json({
                 success: false,
-                message: error
+                message: error.message
             });
         }
-
     }
 };
 

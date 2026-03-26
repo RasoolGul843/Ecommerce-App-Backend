@@ -35,8 +35,12 @@ const productsRoutes = require("./routes/products_routes");
 app.use("/api/products", productsRoutes);
 
 /////----- cart Routes -----////
-const cartRoutes = require("./routes/cart_routes");
+const cartRoutes = require("./routes/cart_routes"); 
 app.use("/api/cart", cartRoutes);
+
+/////----- order Routes -----////
+const orderRoutes = require("./routes/order_routes");
+app.use("/api/order", orderRoutes);
 
 
 
